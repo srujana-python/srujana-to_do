@@ -59,7 +59,15 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <body>
     <title>TODO LOGIN</title>
     <h2>TODO application login form</h2>
-
+<div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+       {% for message in messages %}
+          {{ message }}
+       {% endfor %}
+    {% endif %}
+ {% endwith %}
+</div>
     <form action="{{ url_for("login_action")}}"  method="post" style="max-width:500px;margin:auto">
     <tr>
     <div class="input-container">
@@ -79,6 +87,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 </form>
 <br>
 <center>
+
     if not registered.. register here
         <button><a href="/register" >register</a></button>
     </center>
