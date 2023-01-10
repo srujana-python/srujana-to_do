@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template,request,redirect,url_for, flash, session
  # For flask implementation
 from pymongo import MongoClient # Database connector
@@ -69,8 +68,10 @@ def login_action():
 	   session["ID"]=id
 	   print(session["ID"])
 	   return redirect("/list")
+
    else:
-	   return render_template("login_error.html")
+	   flash('Invalid username and password')
+	   return render_template("login.html")
 
 @app.route('/register_action', methods =["GET", "POST"])
 def register_action():
@@ -81,8 +82,12 @@ def register_action():
    phone = request.form['phone'] 
   
    query=users.find_one({"username":uname})
+   
    if query:
-	    return render_template('register_error.html')
+		
+	    flash('Username already exists')
+
+	    return render_template('register.html')
 	  
    else:
 	    signup = users.insert_one(
